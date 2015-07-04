@@ -1,0 +1,49 @@
+{
+  "profiles": [{
+    "displayLocation": "muriwai heads",
+    "aulCode": 500201,
+    "1": {
+      "events": [{},{},{}],
+      "ages": "0-14"
+    },
+    "2": {
+      "events": [{"eduction": "ncea 4"},{},{}],
+      "ages": "15-29"
+    },
+    "3": {
+      "events": [{},{},{}],
+      "ages": "30-44"
+    },
+    "4": {
+      "events": [{},{},{}],
+      "ages": "45-65"
+    },
+    "5": {
+      "events": [{},{},{}],
+      "ages": "60+"
+    }
+  }, {
+    "displayLocation": "wellington",
+    "aulCode": 600301,
+    "1": {
+      "events": [{},{},{}],
+      "ages": "0-14"
+    },
+    "2": {
+      "events": [{"education": "phd"},{},{}],
+      "ages": "15-29"
+    },
+    "3": {
+      "events": [{},{},{}],
+      "ages": "30-44"
+    },
+    "4": {
+      "events": [{},{},{}],
+      "ages": "45-65"
+    },
+    "5": {
+      "events": [{},{},{}],
+      "ages": "60+"
+    }
+  }]
+}

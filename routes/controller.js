@@ -1,26 +1,36 @@
 'use strict';
 
+var MongoClient = require('mongodb').MongoClient
+
+var url = 'mongodb://localhost:27017';
+
 var Controller = function () {};
-var MongoClient = require('mongodb').MongoClient;
-var url = 'http://strato.oberkirch.org:27017';
 
 
-
-Controller.prototype.getProfile = function (locations) {
+Controller.prototype.getData = function (locations, callback) {
   MongoClient.connect(url, function (err, db) {
 
 
-    var collection = db.collection('documents');
+    var collection = db.collection('test_database');
     // Find some documents 
-    collection.find({}).toArray(function (err, docs) {
-      console.dir(docs);
-      callback(docs);
+    var docs = []
+    collection.find({code: locations[0]}).toArray(function (err, _docs) {
+      docs.push(_docs);
     });
 
+    collection.find({code: locations[1]}).toArray(function (err, _docs) {
+      docs.push(_docs);
+    });
+
+    callback(docs);
 
 
     db.close();
   });
+};
+
+Controller.prototype.getProfiles = function (data) {
+
 };
 
 module.exports.controller = new Controller();
