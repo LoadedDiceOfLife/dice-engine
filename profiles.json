@@ -2,6 +2,7 @@
   "profiles": [{
     "displayLocation": "muriwai heads",
     "aulCode": 500201,
+    "dc": 10.0,
     "1": {
       "events": [{},{},{}],
       "ages": "0-14"
@@ -25,6 +26,7 @@
   }, {
     "displayLocation": "wellington",
     "aulCode": 600301,
+    "dc": 9.0,
     "1": {
       "events": [{},{},{}],
       "ages": "0-14"

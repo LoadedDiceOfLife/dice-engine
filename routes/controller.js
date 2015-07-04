@@ -1,41 +1,59 @@
 'use strict';
 
-var MongoClient = require('mongodb').MongoClient
 
-var url = 'mongodb://127.0.0.1:27017/test_database';
+var url = 'mongodb://localhost:27017/test_database';
 
-function Controller() {};
+var BBPromise = require('bluebird');
+var MongoClient = BBPromise.promisifyAll(require('mongodb')).MongoClient;
+
+
+function Controller() {}
 
 
 Controller.prototype.getData = function (locations, callback) {
-  MongoClient.connect(url, function (err, db) {
-
+  var self = this;
+  return MongoClient.connectAsync(url).then(function (db) {
     var collection = db.collection('area_data');
-
     // Find some documents 
-   // var docs = [];
-    var code = parseInt(locations[0]);
-    collection.find({code: code}).toArray(function(err, docs) {
-      console.log('docs', err, docs)
+    // var docs = [];
+    return BBPromise.map(locations, function (location) {
+      return collection.findAsync({
+        code: parseInt(location)
+      }).then(function (docs) {
+        return docs.toArrayAsync();
+      }).then(function (_docs) {
+        return _docs[0];
+      });
+    }).then(function (_docs) {
+      console.log('docs', _docs)
+      return _docs;
     });
-
-    console.log(docs)
-
-    // collection.find({code: locations[1]}).toArray(function (err, _docs) {
-    // console.log('docs',err);
-
-    //   docs.push(_docs);
-    // });
-    return this.getProfiles(docs);
-
-
-    //db.close();
   });
+
 };
 
 Controller.prototype.getProfiles = function (data) {
-  console.log(docs)
-  return docs;
+  console.log(data)
+  return data;
+};
+
+Controller.prototype.getRegions = function () {
+  return MongoClient.connectAsync(url).then(function (db) {
+    var collection = db.collection('area_data');
+    // Find some documents 
+    // var docs = [];
+    return BBPromise.map(locations, function (location) {
+      return collection.findAsync({}).then(function (docs) {
+        return docs.toArrayAsync();
+      }).then(function (_docs) {
+        return _docs[0];
+      });
+    }).then(function (_docs) {
+      console.log('docs', _docs)
+      return _docs;
+    });
+  });
+
 };
 
 module.exports = Controller;

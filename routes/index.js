@@ -6,12 +6,17 @@ var Controller = require('./controller');
 var controller = new Controller();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   var locations = req.query.locations;
   console.log(controller)
-  var profiles = controller.getData(locations, controller.getProfile);
+  return controller.getData(locations)
+    .then(function (profiles) {
+      res.send({
+        profiles: profiles
+      });
 
-  res.send( { profiles: profiles });
+    });
+
 });
 
 module.exports = router;
