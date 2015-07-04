@@ -2,35 +2,40 @@
 
 var MongoClient = require('mongodb').MongoClient
 
-var url = 'mongodb://localhost:27017';
+var url = 'mongodb://127.0.0.1:27017/test_database';
 
-var Controller = function () {};
+function Controller() {};
 
 
 Controller.prototype.getData = function (locations, callback) {
   MongoClient.connect(url, function (err, db) {
 
+    var collection = db.collection('area_data');
 
-    var collection = db.collection('test_database');
     // Find some documents 
-    var docs = []
-    collection.find({code: locations[0]}).toArray(function (err, _docs) {
-      docs.push(_docs);
+   // var docs = [];
+    var code = parseInt(locations[0]);
+    collection.find({code: code}).toArray(function(err, docs) {
+      console.log('docs', err, docs)
     });
 
-    collection.find({code: locations[1]}).toArray(function (err, _docs) {
-      docs.push(_docs);
-    });
+    console.log(docs)
 
-    callback(docs);
+    // collection.find({code: locations[1]}).toArray(function (err, _docs) {
+    // console.log('docs',err);
+
+    //   docs.push(_docs);
+    // });
+    return this.getProfiles(docs);
 
 
-    db.close();
+    //db.close();
   });
 };
 
 Controller.prototype.getProfiles = function (data) {
-
+  console.log(docs)
+  return docs;
 };
 
-module.exports.controller = new Controller();
+module.exports = Controller;
